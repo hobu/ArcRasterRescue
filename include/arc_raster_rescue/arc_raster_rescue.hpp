@@ -11,6 +11,7 @@
 #include <string>
 #include <typeinfo>
 #include <vector>
+#include <iomanip>
 
 #ifndef GIT_HASH
   #pragma message "Compiling without a git hash!"
