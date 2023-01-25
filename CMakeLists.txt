@@ -19,7 +19,7 @@ add_library(arc_raster_rescue
 target_include_directories(arc_raster_rescue PUBLIC ${GDAL_INCLUDE_DIR} include)
 target_link_libraries(arc_raster_rescue PRIVATE ZLIB::ZLIB ${GDAL_LIBRARY})
 target_compile_options(arc_raster_rescue PRIVATE
-  -Wall -pedantic -Wno-unused-variable
+    -Wall -pedantic -Wno-unused-variable -DDEBUG -DEXPLORE
 )
 target_compile_features(arc_raster_rescue PRIVATE cxx_constexpr)
 target_compile_definitions(arc_raster_rescue PUBLIC

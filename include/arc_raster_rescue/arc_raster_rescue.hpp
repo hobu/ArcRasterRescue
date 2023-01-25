@@ -1,6 +1,7 @@
 #pragma once
 
 #include <gdal_priv.h>
+#include <array>
 
 #include <algorithm>
 #include <cassert>
