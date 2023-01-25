@@ -11,6 +11,9 @@ string(TIMESTAMP MY_TIMESTAMP "%Y-%m-%d %H:%M:%S")
 find_package(GDAL REQUIRED)
 find_package(ZLIB REQUIRED)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 option(EXPLORE "Whether or not to print exploratory debugging info useful for building new features.")
 
 add_library(arc_raster_rescue
