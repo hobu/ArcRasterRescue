@@ -16,30 +16,37 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(EXPLORE "Whether or not to print exploratory debugging info useful for building new features.")
 
-add_library(arc_raster_rescue
+add_library(arc_raster_rescue_lib
   src/arr.cpp
 )
-target_include_directories(arc_raster_rescue PUBLIC ${GDAL_INCLUDE_DIR} include)
-target_link_libraries(arc_raster_rescue PRIVATE ZLIB::ZLIB ${GDAL_LIBRARY})
-target_compile_options(arc_raster_rescue PRIVATE
+target_include_directories(arc_raster_rescue_lib PUBLIC ${GDAL_INCLUDE_DIR} include)
+target_link_libraries(arc_raster_rescue_lib PRIVATE ZLIB::ZLIB ${GDAL_LIBRARY})
+target_compile_options(arc_raster_rescue_lib PRIVATE
     -Wall -pedantic -Wno-unused-variable -DDEBUG -DEXPLORE
 )
-target_compile_features(arc_raster_rescue PRIVATE cxx_constexpr)
-target_compile_definitions(arc_raster_rescue PUBLIC
+target_compile_features(arc_raster_rescue_lib PRIVATE cxx_constexpr)
+target_compile_definitions(arc_raster_rescue_lib PUBLIC
   GIT_HASH=\"${GIT_HASH}\"
   COMPILE_TIME=\"${MY_TIMESTAMP}\"
 )
 if(EXPLORE)
-  target_compile_definitions(arc_raster_rescue PRIVATE EXPLORE)
+  target_compile_definitions(arc_raster_rescue_lib PRIVATE EXPLORE)
 endif()
 
 
 
-add_executable(arc_raster_rescue.exe
+add_executable(arc_raster_rescue
   evaluation/main.cpp
 )
-target_link_libraries(arc_raster_rescue.exe PRIVATE arc_raster_rescue)
-target_compile_options(arc_raster_rescue.exe PRIVATE
+target_link_libraries(arc_raster_rescue PRIVATE arc_raster_rescue_lib)
+target_compile_options(arc_raster_rescue PRIVATE
   -Wall -pedantic -Wno-unused-variable
 )
-target_compile_features(arc_raster_rescue.exe PRIVATE cxx_constexpr)
+target_compile_features(arc_raster_rescue PRIVATE cxx_constexpr)
+
+include(GNUInstallDirs)
+install(
+    TARGETS
+        arc_raster_rescue
+    DESTINATION
+        "${CMAKE_INSTALL_BINDIR}")
